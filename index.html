@@ -33,6 +33,7 @@
         header {
             text-align: center;
             margin-bottom: 25px;
+            z-index: 10;
         }
 
         h1 {
@@ -53,12 +54,14 @@
             text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
         }
 
+        /* Screen Manager Layout States */
         .screen {
             display: none;
             width: 100%;
             max-width: 650px;
             flex-direction: column;
             align-items: center;
+            z-index: 10;
         }
 
         .screen.active {
@@ -130,13 +133,14 @@
             box-shadow: 0 6px 12px rgba(0, 255, 255, 0.2);
         }
 
+        /* Verified cross off selection indicator classes */
         .cell.checked {
-            background: rgba(255, 0, 127, 0.35);
-            border-color: var(--primary);
-            color: #ffccf2;
-            text-decoration: line-through;
+            background: rgba(255, 0, 127, 0.45) !important;
+            border-color: var(--primary) !important;
+            color: #ffccf2 !important;
+            text-decoration: line-through !important;
             transform: scale(0.96);
-            box-shadow: inset 0 0 12px rgba(255, 0, 127, 0.6);
+            box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.8) !important;
         }
 
         .cell.free {
@@ -144,11 +148,6 @@
             border-color: var(--secondary);
             color: #e0ffff;
             font-weight: 700;
-        }
-
-        .cell.free.checked {
-            background: rgba(255, 0, 127, 0.4);
-            border-color: var(--primary);
         }
 
         .controls {
@@ -191,17 +190,18 @@
             box-shadow: 0 6px 15px rgba(0, 255, 255, 0.3);
         }
 
+        /* Large Background Text Watermark Alert style */
         .bingo-bg-alert {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.5);
-            font-size: 15vw;
+            font-size: 18vw;
             font-weight: 900;
-            color: rgba(255, 0, 127, 0.12);
+            color: rgba(255, 0, 127, 0.18);
             text-transform: uppercase;
             letter-spacing: 5px;
-            z-index: -1;
+            z-index: 1;
             pointer-events: none;
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -212,14 +212,15 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
+        /* Foreground Modal Dialog Overlay styling */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 12, 32, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 12, 32, 0.9);
+            backdrop-filter: blur(10px);
             z-index: 100;
             display: flex;
             align-items: center;
@@ -244,7 +245,7 @@
             text-align: center;
             max-width: 500px;
             width: 100%;
-            box-shadow: 0 0 30px rgba(255, 0, 127, 0.5);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.6);
             transform: translateY(30px);
             transition: transform 0.4s ease;
         }
@@ -254,16 +255,17 @@
         }
 
         .modal-box h2 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--secondary);
             margin: 0 0 10px 0;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
         }
 
         .quote-box {
             font-size: 1.3rem;
             font-style: italic;
-            margin: 20px 0;
+            margin: 25px 0;
             line-height: 1.5;
             color: #fff;
             border-left: 4px solid var(--primary);
@@ -284,11 +286,11 @@
             body { padding: 12px; }
             h1 { font-size: 1.8rem; }
             .subtitle { font-size: 0.9rem; }
-            .cell { font-size: 0.68rem; padding: 3px; border-radius: 6px; }
-            .grid-3x3 .cell { font-size: 0.9rem; padding: 10px; }
-            .grid-4x4 .cell { font-size: 0.78rem; padding: 6px; }
+            .cell { font-size: 0.65rem; padding: 2px; border-radius: 6px; }
+            .grid-3x3 .cell { font-size: 0.85rem; padding: 8px; }
+            .grid-4x4 .cell { font-size: 0.72rem; padding: 4px; }
             .modal-box { padding: 20px; }
-            .modal-box h2 { font-size: 2.2rem; }
+            .modal-box h2 { font-size: 2.5rem; }
             .quote-box { font-size: 1.05rem; }
         }
     </style>
@@ -302,17 +304,19 @@
         <div class="subtitle">Grand Final Live Bingo</div>
     </header>
 
+    <!-- STEP 1: Main Menu Configuration Screen -->
     <div class="screen active" id="menu-screen">
         <div class="menu-box">
             <h2>Select Your Board Size</h2>
             <div class="menu-options">
-                <button class="btn btn-secondary" onclick="startGame(3)">Easy (3x3 Grid)</button>
-                <button class="btn btn-secondary" onclick="startGame(4)">Normal (4x4 Grid)</button>
-                <button class="btn" onclick="startGame(5)">Hard (5x5 Grid)</button>
+                <button class="btn btn-secondary" onclick="startGame(3)">Easy (3x3 Grid / 9 Squares)</button>
+                <button class="btn btn-secondary" onclick="startGame(4)">Normal (4x4 Grid / 16 Squares)</button>
+                <button class="btn" onclick="startGame(5)">Hard (5x5 Grid / 25 Squares)</button>
             </div>
         </div>
     </div>
 
+    <!-- STEP 2: Gameplay Interactive Screen Grid -->
     <div class="screen" id="game-screen">
         <div class="grid-container">
             <div class="grid" id="bingo-grid"></div>
@@ -323,12 +327,13 @@
         </div>
     </div>
 
+    <!-- STEP 3: Victory Pop-up Overlay Dialog Box -->
     <div class="overlay" id="bingo-overlay">
         <div class="modal-box">
             <h2>BINGO!</h2>
-            <div class="quote-box" id="quote-content">
-                "Quote text goes here..."
-                <span class="quote-author" id="quote-author">- Author</span>
+            <div class="quote-box">
+                <span id="quote-text">"Quote text goes here..."</span>
+                <span class="quote-author" id="quote-author">— Author</span>
             </div>
             <button class="btn" onclick="closeBingoModal()">Continue Playing</button>
         </div>
@@ -336,50 +341,43 @@
 
     <script>
         const prompts = [
-            // --- 2026 Current Specifics ---
-            "UK's 'Look Mum No Computer' uses a homemade synth machine",
-            "Finland's heavy rock 'Liekinheitin' triggers a pyrotechnics wall",
-            "Australia's Delta Goodrem hits an operatic whistle note",
-            "Greece's 'Ferto' features heavy traditional ethnic dancing",
-            "Hosts Victoria Swarovski or Michael Ostrowski make a classical music pun",
-            "Greece & Cyprus trade maximum points",
-            "Jury connection to a capital city lags or glitches",
-            "A presenter or commentator references last year's 'Wasted Love' win",
-            "Green room group wave flags wildly at the camera",
-            "A song is performed entirely in French",
-
-            // --- Production & Staging Tropes ---
-            "Wind machine running at maximum blast",
-            "A dramatic mid-song costume transition",
-            "Performer wears an entirely sequined outfit",
-            "Sparkler rain curtains active on stage",
-            "A performer drops to lie flat on the floor",
-            "Strobe light or laser grid frenzy",
-            "Spontaneous or rapid rap segment",
-            "A backing dancer wears an opaque mask or helmet",
-            "Performer intentionally winks directly down the camera lens",
-            "Prop or mic stand falls over or gets stuck",
-
-            // --- Show, Hosts & Voting Classics ---
-            "An awkward joke from the hosts meets crowd silence",
-            "Spontaneous crying or green-room emotional tears",
-            "A country finishes with 'Nul Points' from the televote",
-            "Spokesperson takes way too long to read out the 12 points",
-            "Audience member spotted in full country face paint",
-            "A dramatic or sudden final-chorus key change",
-            "Presenter talks straight over a postcard introduction video",
-            "The crowd starts booing a specific set of points",
-            "\"Thank you, Vienna!\" yelled by an entry act",
-            "\"Europe, start voting now!\" is announced"
+            "UK's LOOK MUM NO COMPUTER triggers a custom crazy synth machine solo",
+            "Finland's heavy rock 'Liekinheitin' sets off a massive pyro wall",
+            "Australia's Delta Goodrem hits an operatic whistle high note",
+            "Greece's Akylas showcases high-energy traditional choreography",
+            "Hosts Victoria Swarovski or Michael Ostrowski crack an awkward joke",
+            "Greece and Cyprus swap maximum 12 points during voting",
+            "A national jury video broadcast feeds lag or freeze live",
+            "Green Room artists enthusiastically wave flags down the lens",
+            "A song entry is performed entirely in French",
+            "Stage wind machines running at maximum velocity blast",
+            "A surprise mid-song outfit or dress change transition occurs",
+            "A performer wears a completely sparkling sequined suit",
+            "Sparkler rain curtains cascade from the ceiling rafters",
+            "An entry drops flat onto the floor during the track climax",
+            "Lasers and strobe light sweeps flood the venue crowd",
+            "A backing dancer wears an opaque facial helmet or mask",
+            "An artist deliberately winks directly into the steadycam camera",
+            "A microphone stand or stage accessory accidentally falls over",
+            "A country receives 'Nul Points' during the public announcement",
+            "Spokespersons drag out the winner reveal for extra suspense",
+            "Fan in the standing pit wears elaborate face paint flags",
+            "A sudden or dramatic musical key change hits the last chorus",
+            "Commentator speaks directly over a postcard video sequence",
+            "Audience arena explicitly boos a political voting pattern",
+            "\"Thank you Vienna!\" is screamed into the microphone",
+            "The crowd stands up to sing along with an iconic chorus",
+            "An emotional artist sheds visible tears in the green room lounge",
+            "A backup singer is out of sync with the primary singer's movements"
         ];
 
         const eurovisionQuotes = [
-            { quote: "Europe, start voting now!", author: "The Hosts" },
-            { quote: "I’ve seen some strange things over the years, but that really takes the biscuit.", author: "Graham Norton" },
-            { quote: "And the twelve points go to...", author: "Every Jury Spokesperson" },
-            { quote: "Thank you for an amazing show! Goodnight Europe!", author: "The Winners" },
+            { quote: "Europe, start voting now!", author: "The Presenters" },
+            { quote: "I've seen some strange things over the years, but that really takes the biscuit.", author: "Graham Norton" },
+            { quote: "And the twelve points go to...", author: "National Spokespersons" },
+            { quote: "Thank you for an amazing show! Goodnight Europe!", author: "The Grand Winners" },
             { quote: "You can see the absolute emotion in the green room tonight.", author: "Rylan Clark" },
-            { quote: "It’s glitter, it’s madness, it’s beautiful chaos.", author: "Eurovision Commentator" }
+            { quote: "It's glitter, it's madness, it's beautiful chaos.", author: "BBC Commentary Room" }
         ];
 
         let currentSize = 5; 
@@ -410,6 +408,7 @@
             document.getElementById('game-screen').classList.remove('active');
             document.getElementById('menu-screen').classList.add('active');
             document.getElementById('bg-bingo-text').classList.remove('show');
+            bingoAchieved = false;
         }
 
         function generateCard(size) {
@@ -417,7 +416,7 @@
             const grid = document.getElementById('bingo-grid');
             
             grid.className = 'grid'; 
-            grid.classList.add(`grid-${size}x4`.replace('5x4', '5x5').replace('4x4', '4x4').replace('3x4', '3x3'));
+            grid.classList.add(`grid-${size}x3`.replace('5x3', '5x5').replace('4x3', '4x4'));
             grid.innerHTML = ''; 
 
             let totalCells = size * size;
@@ -429,6 +428,7 @@
                 cell.className = 'cell';
                 cell.dataset.index = i;
                 
+                // Add free space in exact grid centers for odd sizes
                 if ((size === 5 || size === 3) && i === centerIndex) {
                     cell.classList.add('free', 'checked'); 
                     cell.innerHTML = '✨<br>FREE SPACE';
@@ -438,7 +438,6 @@
                 }
 
                 cell.addEventListener('click', function() {
-                    if (this.classList.contains('free')) return; 
                     this.classList.toggle('checked');
                     checkBingo();
                 });
@@ -475,10 +474,12 @@
 
             let win = false;
 
+            // Row Verification loop
             for (let r = 0; r < currentSize; r++) {
                 if (matrix[r].every(val => val === true)) win = true;
             }
 
+            // Column Verification loop
             for (let c = 0; c < currentSize; c++) {
                 let colCheck = true;
                 for (let r = 0; r < currentSize; r++) {
@@ -487,6 +488,7 @@
                 if (colCheck) win = true;
             }
 
+            // Diagonal Cross Verification loops
             let diag1 = true;
             let diag2 = true;
             for (let i = 0; i < currentSize; i++) {
@@ -505,7 +507,7 @@
             document.getElementById('bg-bingo-text').classList.add('show');
 
             const randomQuote = eurovisionQuotes[Math.floor(Math.random() * eurovisionQuotes.length)];
-            document.getElementById('quote-content').firstChild.textContent = `"${randomQuote.quote}"`;
+            document.getElementById('quote-text').textContent = `"${randomQuote.quote}"`;
             document.getElementById('quote-author').textContent = `— ${randomQuote.author}`;
 
             setTimeout(() => {
