@@ -1,870 +1,909 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eurovision 2026 Grand Final Bingo</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <style>
-        :root {
-            --primary: #ff007f;
-            --secondary: #00ffff;
-            --bg-start: #0f0c20;
-            --bg-end: #2b1055;
-            --card-bg: rgba(255,255,255,0.08);
-            --border-color: #44337a;
-        }
+<title>Eurovision 2026 Grand Final Bingo</title>
 
-        * {
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
+:root {
+    --primary: #ff007f;
+    --secondary: #00ffff;
+    --bg-start: #0f0c20;
+    --bg-end: #2b1055;
+    --card-bg: rgba(255,255,255,0.08);
+    --border-color: #44337a;
+}
 
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-            z-index: 5;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        h1 {
-            margin: 0;
-            font-size: 2.6rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255,0,127,0.5);
-        }
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
 
-        .subtitle {
-            margin-top: 6px;
-            color: var(--secondary);
-            letter-spacing: 1px;
-        }
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    z-index: 5;
+}
 
-        .score-banner {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255,0,127,0.15);
-            border: 2px solid var(--primary);
-            border-radius: 999px;
-            padding: 10px 20px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            z-index: 5;
-        }
+h1 {
+    margin: 0;
+    font-size: 2.6rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(255,0,127,0.5);
+}
 
-        .score-banner span {
-            color: var(--secondary);
-            font-size: 1.3rem;
-        }
+.subtitle {
+    margin-top: 6px;
+    color: var(--secondary);
+    letter-spacing: 1px;
+}
 
-        .screen {
-            display: none;
-            width: 100%;
-            max-width: 700px;
-            z-index: 5;
-        }
+.score-banner {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,0,127,0.15);
+    border: 2px solid var(--primary);
+    border-radius: 999px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    z-index: 5;
+}
 
-        .screen.active {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.score-banner span {
+    color: var(--secondary);
+    font-size: 1.3rem;
+}
 
-        .menu-box {
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid var(--border-color);
-            border-radius: 18px;
-            padding: 30px;
-            text-align: center;
-        }
+.screen {
+    display: none;
+    width: 100%;
+    max-width: 700px;
+    z-index: 5;
+}
 
-        .menu-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .btn {
-            border: none;
-            border-radius: 10px;
-            padding: 14px 22px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.2s ease;
-            letter-spacing: 0.5px;
-        }
+.menu-box {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--border-color);
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+}
 
-        .btn:hover {
-            transform: translateY(-2px);
-        }
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
+.btn {
+    border: none;
+    border-radius: 10px;
+    padding: 14px 22px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.2s ease;
+    letter-spacing: 0.5px;
+}
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
-        }
+.btn:hover {
+    transform: translateY(-2px);
+}
 
-        .grid-container {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            margin-bottom: 25px;
-        }
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
 
-        .grid {
-            width: 100%;
-            height: 100%;
-            display: grid;
-        }
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+}
 
-        .grid-3x3 {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
+.grid-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 25px;
+}
 
-        .grid-4x4 {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
+.grid {
+    width: 100%;
+    height: 100%;
+    display: grid;
+}
 
-        .grid-5x5 {
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-        }
+.grid-3x3 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
 
-        .cell {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 8px;
-            font-size: 0.9rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            user-select: none;
-            transition: 0.2s ease;
-            overflow: hidden;
-            word-break: break-word;
-            font-weight: 600;
-        }
+.grid-4x4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
 
-        .cell:hover {
-            border-color: var(--secondary);
-            background: rgba(255,255,255,0.12);
-        }
+.grid-5x5 {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
 
-        .cell.checked {
-            background: rgba(255,0,127,0.45);
-            border-color: var(--primary);
-            color: #ffd7ed;
-            text-decoration: line-through;
-            transform: scale(0.96);
-        }
+/* IMPROVED MOBILE CELL STYLING */
 
-        .cell.free {
-            background: rgba(0,255,255,0.15);
-            border-color: var(--secondary);
-            font-weight: 700;
-        }
+.cell {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 8px;
+    text-align: center;
 
-        .controls {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .bingo-bg-alert {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            font-size: 18vw;
-            font-weight: 900;
-            color: rgba(255,0,127,0.2);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.5s ease;
-            z-index: 1;
-        }
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s ease;
 
-        .bingo-bg-alert.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
+    font-weight: 600;
 
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15,12,32,0.92);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s ease;
-            padding: 20px;
-            z-index: 999;
-        }
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.2;
+    hyphens: auto;
+}
 
-        .overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+.grid-5x5 .cell {
+    font-size: 0.78rem;
+}
 
-        .modal-box {
-            width: 100%;
-            max-width: 520px;
-            background: linear-gradient(135deg, #2b1055, #0f0c20);
-            border: 3px solid var(--primary);
-            border-radius: 22px;
-            padding: 35px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(255,0,127,0.5);
-        }
+.grid-4x4 .cell {
+    font-size: 0.88rem;
+}
 
-        .modal-box h2 {
-            margin-top: 0;
-            font-size: 3rem;
-            color: var(--secondary);
-        }
+.grid-3x3 .cell {
+    font-size: 1rem;
+}
 
-        .quote-box {
-            margin: 25px 0;
-            text-align: left;
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
-            line-height: 1.5;
-        }
+.cell:hover {
+    border-color: var(--secondary);
+    background: rgba(255,255,255,0.12);
+}
 
-        .quote-text-main {
-            display: block;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
+.cell.checked {
+    background: rgba(255,0,127,0.45);
+    border-color: var(--primary);
+    color: #ffd7ed;
+    text-decoration: line-through;
+    transform: scale(0.96);
+}
 
-        .quote-author {
-            display: block;
-            color: var(--secondary);
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
+.cell.free {
+    background: rgba(0,255,255,0.15);
+    border-color: var(--secondary);
+    font-weight: 700;
+}
 
-        .quote-context {
-            display: block;
-            color: #aaa;
-            font-size: 0.9rem;
-        }
+.controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-        @media (max-width: 600px) {
+.bingo-bg-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    font-size: 18vw;
+    font-weight: 900;
+    color: rgba(255,0,127,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+    z-index: 1;
+}
 
-            body {
-                padding: 12px;
-            }
+.bingo-bg-alert.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
 
-            h1 {
-                font-size: 2rem;
-            }
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,12,32,0.92);
+    backdrop-filter: blur(10px);
 
-            .cell {
-                font-size: 0.66rem;
-                padding: 4px;
-            }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-            .grid-3x3 .cell {
-                font-size: 0.9rem;
-            }
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
 
-            .modal-box h2 {
-                font-size: 2.3rem;
-            }
-        }
-    </style>
+    padding: 20px;
+    z-index: 999;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 520px;
+
+    background: linear-gradient(135deg, #2b1055, #0f0c20);
+
+    border: 3px solid var(--primary);
+    border-radius: 22px;
+
+    padding: 35px;
+    text-align: center;
+
+    box-shadow: 0 0 30px rgba(255,0,127,0.5);
+}
+
+.modal-box h2 {
+    margin-top: 0;
+    font-size: 3rem;
+    color: var(--secondary);
+}
+
+.quote-box {
+    margin: 25px 0;
+    text-align: left;
+    border-left: 4px solid var(--primary);
+    padding-left: 15px;
+    line-height: 1.5;
+}
+
+.quote-text-main {
+    display: block;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.quote-author {
+    display: block;
+    color: var(--secondary);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.quote-context {
+    display: block;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .cell {
+        padding: 5px;
+        border-radius: 8px;
+        line-height: 1.15;
+    }
+
+    .grid-5x5 .cell {
+        font-size: 0.56rem;
+    }
+
+    .grid-4x4 .cell {
+        font-size: 0.68rem;
+    }
+
+    .grid-3x3 .cell {
+        font-size: 0.82rem;
+    }
+
+    .modal-box h2 {
+        font-size: 2.3rem;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-    <div class="bingo-bg-alert" id="bg-bingo-text">
-        BINGO!
+<div class="bingo-bg-alert" id="bg-bingo-text">
+    BINGO!
+</div>
+
+<header>
+    <h1>Eurovision 2026</h1>
+    <div class="subtitle">
+        Grand Final Live Bingo
     </div>
+</header>
 
-    <header>
-        <h1>Eurovision 2026</h1>
-        <div class="subtitle">
-            Grand Final Live Bingo
-        </div>
-    </header>
+<div class="score-banner" id="score-counter-banner">
+    Lines Cleared:
+    <span id="lines-count-value">0</span>
+</div>
 
-    <div class="score-banner" id="score-counter-banner">
-        Lines Cleared:
-        <span id="lines-count-value">0</span>
-    </div>
+<!-- MENU -->
 
-    <!-- MENU -->
+<div class="screen active" id="menu-screen">
 
-    <div class="screen active" id="menu-screen">
+    <div class="menu-box">
 
-        <div class="menu-box">
+        <h2>Select Your Board Size</h2>
 
-            <h2>Select Your Board Size</h2>
+        <div class="menu-options">
 
-            <div class="menu-options">
-
-                <button class="btn btn-secondary" onclick="startGame(3)">
-                    Easy (3x3)
-                </button>
-
-                <button class="btn btn-secondary" onclick="startGame(4)">
-                    Normal (4x4)
-                </button>
-
-                <button class="btn btn-primary" onclick="startGame(5)">
-                    Hard (5x5)
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- GAME -->
-
-    <div class="screen" id="game-screen">
-
-        <div class="grid-container">
-            <div class="grid" id="bingo-grid"></div>
-        </div>
-
-        <div class="controls">
-
-            <button class="btn btn-primary" onclick="returnToMenu()">
-                Main Menu
+            <button class="btn btn-secondary" onclick="startGame(3)">
+                Easy (3x3)
             </button>
 
-            <button class="btn btn-secondary" onclick="clearCard()">
-                Reset Marks
+            <button class="btn btn-secondary" onclick="startGame(4)">
+                Normal (4x4)
+            </button>
+
+            <button class="btn btn-primary" onclick="startGame(5)">
+                Hard (5x5)
             </button>
 
         </div>
 
     </div>
 
-    <!-- MODAL -->
+</div>
 
-    <div class="overlay" id="bingo-overlay">
+<!-- GAME -->
 
-        <div class="modal-box">
+<div class="screen" id="game-screen">
 
-            <h2>BINGO!</h2>
+    <div class="grid-container">
+        <div class="grid" id="bingo-grid"></div>
+    </div>
 
-            <div class="quote-box">
+    <div class="controls">
 
-                <span class="quote-text-main" id="quote-text"></span>
+        <button class="btn btn-primary" onclick="returnToMenu()">
+            Main Menu
+        </button>
 
-                <span class="quote-author" id="quote-author"></span>
-
-                <span class="quote-context" id="quote-context"></span>
-
-            </div>
-
-            <button class="btn btn-primary" onclick="closeBingoModal()">
-                Continue Playing
-            </button>
-
-        </div>
+        <button class="btn btn-secondary" onclick="clearCard()">
+            Reset Marks
+        </button>
 
     </div>
 
-    <script>
+</div>
 
-        const prompts = [
+<!-- MODAL -->
 
-            "Host makes a cringey Mozart or waltz joke.",
-            "Spokesperson plugs their own music/brand.",
-            "Graham Norton sighs heavily on mic.",
-            "Awkward, totally silent voting satellite delay.",
-            "Green room camera catches aggressive drinking.",
-            "Performer sings in mid-air.",
-            "Singer lies flat on floor 5s+.",
-            "Artist fails to get crowd clapping.",
-            "Performer pretends to play unplugged instrument.",
-            "Total zero points from public vote.",
-            "Host interacts with completely confused fan.",
-            "A performer screams.",
-            "Presenter loses place on script.",
-            "Artist makes intense, unblinking lens stare.",
-            "Stage smoke completely hides performer.",
-            "Cyprus and Greece predictably trade 12s.",
-            "Arena crowd loudly boos voting block.",
-            "Jury and public votes wildly contradict.",
-            "Performer wears dark sunglasses indoors entirely.",
-            "A flag from a non-participating nation.",
-            "A song's final note is held out for over 5 seconds straight.",
-            "Seeing a camera where you shouldn’t be seeing a camera.",
-            "A host completely drops character to laugh at a genuine technical delay.",
-            "Audience boos.",
-            "Fire on stage.",
-            "The scoreboard shows a country leading by over 50 points.",
-            "A spokesperson says 'Good evening' in the host country's language.",
-            "The host country gets a massive cheer from the arena.",
-            "The host changes into a completely new outfit.",
-            "Artist takes off an item of clothing.",
-            "The artist points directly down the camera lens.",
-            "A traditional or folk instrument is played on stage.",
-            "A key change.",
-            "The performer interacts directly with a backing dancer.",
-            "A confetti or glitter cannon goes off."
+<div class="overlay" id="bingo-overlay">
 
+    <div class="modal-box">
+
+        <h2>BINGO!</h2>
+
+        <div class="quote-box">
+
+            <span class="quote-text-main" id="quote-text"></span>
+
+            <span class="quote-author" id="quote-author"></span>
+
+            <span class="quote-context" id="quote-context"></span>
+
+        </div>
+
+        <button class="btn btn-primary" onclick="closeBingoModal()">
+            Continue Playing
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const prompts = [
+
+    "Host makes a cringey Mozart or waltz joke.",
+    "Spokesperson plugs their own music/brand.",
+    "Graham Norton sighs heavily on mic.",
+    "Awkward, totally silent voting satellite delay.",
+    "Green room camera catches aggressive drinking.",
+    "Performer sings in mid-air.",
+    "Singer lies flat on floor 5s+.",
+    "Artist fails to get crowd clapping.",
+    "Performer pretends to play unplugged instrument.",
+    "Total zero points from public vote.",
+    "Host interacts with completely confused fan.",
+    "A performer screams.",
+    "Presenter loses place on script.",
+    "Artist makes intense, unblinking lens stare.",
+    "Stage smoke completely hides performer.",
+    "Cyprus and Greece predictably trade 12s.",
+    "Arena crowd loudly boos voting block.",
+    "Jury and public votes wildly contradict.",
+    "Performer wears dark sunglasses indoors entirely.",
+    "A flag from a non-participating nation.",
+    "A song's final note is held out for over 5 seconds straight.",
+    "Seeing a camera where you shouldn’t be seeing a camera.",
+    "A host completely drops character to laugh at a genuine technical delay.",
+    "Audience boos.",
+    "Fire on stage.",
+    "The scoreboard shows a country leading by over 50 points.",
+    "A spokesperson says 'Good evening' in the host country's language.",
+    "The host country gets a massive cheer from the arena.",
+    "The host changes into a completely new outfit.",
+    "Artist takes off an item of clothing.",
+    "The artist points directly down the camera lens.",
+    "A traditional or folk instrument is played on stage.",
+    "A key change.",
+    "The performer interacts directly with a backing dancer.",
+    "A confetti or glitter cannon goes off."
+
+];
+
+const eurovisionFactsAndQuotes = [
+
+    {
+        quote: "ABBA won Eurovision in 1974 with Waterloo.",
+        author: "Eurovision Fact",
+        context: "Their victory launched one of the most successful pop careers in history."
+    },
+
+    {
+        quote: "Ireland and Sweden share the record for most Eurovision wins.",
+        author: "Eurovision Fact",
+        context: "Both countries have won the contest seven times."
+    },
+
+    {
+        quote: "Johnny Logan is the only person to win Eurovision three times.",
+        author: "Eurovision Fact",
+        context: "He won twice as a singer and once as a songwriter for Ireland."
+    },
+
+    {
+        quote: "Loreen became the second performer ever to win Eurovision twice.",
+        author: "Eurovision Fact",
+        context: "She won for Sweden in 2012 and again in 2023."
+    },
+
+    {
+        quote: "Celine Dion once won Eurovision.",
+        author: "Eurovision Fact",
+        context: "She represented Switzerland in 1988 before becoming a global superstar."
+    },
+
+    {
+        quote: "Eurovision first took place in 1956.",
+        author: "Eurovision Fact",
+        context: "The inaugural contest was held in Lugano, Switzerland."
+    },
+
+    {
+        quote: "Australia first competed in Eurovision in 2015.",
+        author: "Eurovision Fact",
+        context: "They were invited as a special guest participant."
+    },
+
+    {
+        quote: "Eurovision was cancelled in 2020.",
+        author: "Eurovision Fact",
+        context: "It was the first cancellation in the contest’s history."
+    },
+
+    {
+        quote: "The United Kingdom has finished second more times than any other country.",
+        author: "Eurovision Fact",
+        context: "The UK has placed runner-up sixteen times."
+    },
+
+    {
+        quote: "Norway has finished last more times than any other country.",
+        author: "Eurovision Fact",
+        context: "Norway has received last place over ten times."
+    },
+
+    {
+        quote: "The Eurovision voting phrase 'Douze Points' means 'twelve points' in French.",
+        author: "Eurovision Fact",
+        context: "It became iconic because of Eurovision voting."
+    },
+
+    {
+        quote: "Finland won Eurovision for the first time in 2006.",
+        author: "Eurovision Fact",
+        context: "Lordi won with Hard Rock Hallelujah."
+    },
+
+    {
+        quote: "Måneskin won Eurovision before becoming global rock stars.",
+        author: "Eurovision Fact",
+        context: "Italy won the 2021 contest with Zitti e buoni."
+    },
+
+    {
+        quote: "The shortest Eurovision song lasted only 87 seconds.",
+        author: "Eurovision Fact",
+        context: "Finland's 2015 entry Aina Mun Pitää holds the record."
+    },
+
+    {
+        quote: "Eurovision songs cannot exceed three minutes in length.",
+        author: "Eurovision Fact",
+        context: "The time limit has existed for decades."
+    },
+
+    {
+        quote: "In 1969, Eurovision ended in a four-way tie.",
+        author: "Eurovision Fact",
+        context: "France, Spain, the UK and the Netherlands all shared victory."
+    },
+
+    {
+        quote: "Ukraine won Eurovision on only its second appearance.",
+        author: "Eurovision Fact",
+        context: "Ruslana won in 2004 with Wild Dances."
+    },
+
+    {
+        quote: "Portugal achieved its first Eurovision victory in 2017.",
+        author: "Eurovision Fact",
+        context: "Salvador Sobral won with Amar Pelos Dois."
+    },
+
+    {
+        quote: "The Eurovision audience regularly exceeds 150 million viewers.",
+        author: "Eurovision Fact",
+        context: "It remains one of the world's largest live television events."
+    },
+
+    {
+        quote: "The modern Eurovision trophy is shaped like a microphone.",
+        author: "Eurovision Fact",
+        context: "The glass trophy design was introduced in 2008."
+    }
+
+];
+
+let currentSize = 5;
+let completedLines = 0;
+let lastFactIndex = -1;
+
+function shuffle(array) {
+
+    let currentIndex = array.length;
+
+    while (currentIndex !== 0) {
+
+        const randomIndex = Math.floor(
+            Math.random() * currentIndex
+        );
+
+        currentIndex--;
+
+        [
+            array[currentIndex],
+            array[randomIndex]
+        ] = [
+            array[randomIndex],
+            array[currentIndex]
         ];
+    }
 
-        const eurovisionFactsAndQuotes = [
+    return array;
+}
 
-            {
-                quote: "ABBA won Eurovision in 1974 with Waterloo.",
-                author: "Eurovision Fact",
-                context: "Their victory launched one of the most successful pop careers in history."
-            },
+function startGame(size) {
 
-            {
-                quote: "Ireland and Sweden share the record for most Eurovision wins.",
-                author: "Eurovision Fact",
-                context: "Both countries have won the contest seven times."
-            },
+    currentSize = size;
+    completedLines = 0;
 
-            {
-                quote: "Johnny Logan is the only person to win Eurovision three times.",
-                author: "Eurovision Fact",
-                context: "He won twice as a singer and once as a songwriter for Ireland."
-            },
+    document
+        .getElementById("menu-screen")
+        .classList.remove("active");
 
-            {
-                quote: "Loreen became the second performer ever to win Eurovision twice.",
-                author: "Eurovision Fact",
-                context: "She won for Sweden in 2012 and again in 2023."
-            },
+    document
+        .getElementById("game-screen")
+        .classList.add("active");
 
-            {
-                quote: "Celine Dion once won Eurovision.",
-                author: "Eurovision Fact",
-                context: "She represented Switzerland in 1988 before becoming a global superstar."
-            },
+    document
+        .getElementById("score-counter-banner")
+        .style.display = "flex";
 
-            {
-                quote: "Eurovision first took place in 1956.",
-                author: "Eurovision Fact",
-                context: "The inaugural contest was held in Lugano, Switzerland."
-            },
+    document
+        .getElementById("lines-count-value")
+        .textContent = "0";
 
-            {
-                quote: "Australia first competed in Eurovision in 2015.",
-                author: "Eurovision Fact",
-                context: "They were invited as a special guest participant."
-            },
+    generateCard(size);
+}
 
-            {
-                quote: "Eurovision was cancelled in 2020.",
-                author: "Eurovision Fact",
-                context: "It was the first cancellation in the contest’s history."
-            },
+function returnToMenu() {
 
-            {
-                quote: "The United Kingdom has finished second more times than any other country.",
-                author: "Eurovision Fact",
-                context: "The UK has placed runner-up sixteen times."
-            },
+    document
+        .getElementById("game-screen")
+        .classList.remove("active");
 
-            {
-                quote: "Norway has finished last more times than any other country.",
-                author: "Eurovision Fact",
-                context: "Norway has received last place over ten times."
-            },
+    document
+        .getElementById("menu-screen")
+        .classList.add("active");
 
-            {
-                quote: "The Eurovision voting phrase 'Douze Points' means 'twelve points' in French.",
-                author: "Eurovision Fact",
-                context: "It became iconic because of Eurovision voting."
-            },
+    document
+        .getElementById("score-counter-banner")
+        .style.display = "none";
 
-            {
-                quote: "Finland won Eurovision for the first time in 2006.",
-                author: "Eurovision Fact",
-                context: "Lordi won with Hard Rock Hallelujah."
-            },
+    document
+        .getElementById("bg-bingo-text")
+        .classList.remove("show");
+}
 
-            {
-                quote: "Måneskin won Eurovision before becoming global rock stars.",
-                author: "Eurovision Fact",
-                context: "Italy won the 2021 contest with Zitti e buoni."
-            },
+function generateCard(size) {
 
-            {
-                quote: "The shortest Eurovision song lasted only 87 seconds.",
-                author: "Eurovision Fact",
-                context: "Finland's 2015 entry Aina Mun Pitää holds the record."
-            },
+    const shuffled = shuffle([...prompts]);
 
-            {
-                quote: "Eurovision songs cannot exceed three minutes in length.",
-                author: "Eurovision Fact",
-                context: "The time limit has existed for decades."
-            },
+    const grid = document.getElementById("bingo-grid");
 
-            {
-                quote: "In 1969, Eurovision ended in a four-way tie.",
-                author: "Eurovision Fact",
-                context: "France, Spain, the UK and the Netherlands all shared victory."
-            },
+    grid.className = "grid";
+    grid.classList.add(`grid-${size}x${size}`);
 
-            {
-                quote: "Ukraine won Eurovision on only its second appearance.",
-                author: "Eurovision Fact",
-                context: "Ruslana won in 2004 with Wild Dances."
-            },
+    grid.innerHTML = "";
 
-            {
-                quote: "Portugal achieved its first Eurovision victory in 2017.",
-                author: "Eurovision Fact",
-                context: "Salvador Sobral won with Amar Pelos Dois."
-            },
+    const totalCells = size * size;
+    const centerIndex = Math.floor(totalCells / 2);
 
-            {
-                quote: "The Eurovision audience regularly exceeds 150 million viewers.",
-                author: "Eurovision Fact",
-                context: "It remains one of the world's largest live television events."
-            },
+    let promptIndex = 0;
 
-            {
-                quote: "The modern Eurovision trophy is shaped like a microphone.",
-                author: "Eurovision Fact",
-                context: "The glass trophy design was introduced in 2008."
-            }
+    for (let i = 0; i < totalCells; i++) {
 
-        ];
+        const cell = document.createElement("div");
 
-        let currentSize = 5;
-        let completedLines = 0;
-        let lastFactIndex = -1;
+        cell.className = "cell";
+        cell.dataset.index = i;
 
-        function shuffle(array) {
+        if ((size === 3 || size === 5) && i === centerIndex) {
 
-            let currentIndex = array.length;
+            cell.classList.add("free", "checked");
+            cell.innerHTML = "✨<br>FREE SPACE";
 
-            while (currentIndex !== 0) {
+        } else {
 
-                const randomIndex = Math.floor(
-                    Math.random() * currentIndex
-                );
-
-                currentIndex--;
-
-                [
-                    array[currentIndex],
-                    array[randomIndex]
-                ] = [
-                    array[randomIndex],
-                    array[currentIndex]
-                ];
-            }
-
-            return array;
+            cell.textContent = shuffled[promptIndex];
+            promptIndex++;
         }
 
-        function startGame(size) {
+        cell.addEventListener("click", function () {
 
-            currentSize = size;
-            completedLines = 0;
-
-            document
-                .getElementById("menu-screen")
-                .classList.remove("active");
-
-            document
-                .getElementById("game-screen")
-                .classList.add("active");
-
-            document
-                .getElementById("score-counter-banner")
-                .style.display = "flex";
-
-            document
-                .getElementById("lines-count-value")
-                .textContent = "0";
-
-            generateCard(size);
-        }
-
-        function returnToMenu() {
-
-            document
-                .getElementById("game-screen")
-                .classList.remove("active");
-
-            document
-                .getElementById("menu-screen")
-                .classList.add("active");
-
-            document
-                .getElementById("score-counter-banner")
-                .style.display = "none";
-
-            document
-                .getElementById("bg-bingo-text")
-                .classList.remove("show");
-        }
-
-        function generateCard(size) {
-
-            const shuffled = shuffle([...prompts]);
-
-            const grid = document.getElementById("bingo-grid");
-
-            grid.className = "grid";
-            grid.classList.add(`grid-${size}x${size}`);
-
-            grid.innerHTML = "";
-
-            const totalCells = size * size;
-            const centerIndex = Math.floor(totalCells / 2);
-
-            let promptIndex = 0;
-
-            for (let i = 0; i < totalCells; i++) {
-
-                const cell = document.createElement("div");
-
-                cell.className = "cell";
-                cell.dataset.index = i;
-
-                if ((size === 3 || size === 5) && i === centerIndex) {
-
-                    cell.classList.add("free", "checked");
-                    cell.innerHTML = "✨<br>FREE SPACE";
-
-                } else {
-
-                    cell.textContent = shuffled[promptIndex];
-                    promptIndex++;
-                }
-
-                cell.addEventListener("click", function () {
-
-                    if (!this.classList.contains("free")) {
-                        this.classList.toggle("checked");
-                    }
-
-                    checkBingo();
-                });
-
-                grid.appendChild(cell);
+            if (!this.classList.contains("free")) {
+                this.classList.toggle("checked");
             }
 
             checkBingo();
+        });
+
+        grid.appendChild(cell);
+    }
+
+    checkBingo();
+}
+
+function clearCard() {
+
+    const cells = document.querySelectorAll(".cell");
+
+    cells.forEach(cell => {
+
+        if (!cell.classList.contains("free")) {
+            cell.classList.remove("checked");
         }
+    });
 
-        function clearCard() {
+    completedLines = 0;
 
-            const cells = document.querySelectorAll(".cell");
+    document
+        .getElementById("lines-count-value")
+        .textContent = "0";
 
-            cells.forEach(cell => {
+    document
+        .getElementById("bg-bingo-text")
+        .classList.remove("show");
+}
 
-                if (!cell.classList.contains("free")) {
-                    cell.classList.remove("checked");
-                }
-            });
+function checkBingo() {
 
-            completedLines = 0;
+    const cells = document.querySelectorAll(".cell");
 
-            document
-                .getElementById("lines-count-value")
-                .textContent = "0";
+    let matrix = Array(currentSize)
+        .fill()
+        .map(() => Array(currentSize).fill(false));
 
-            document
-                .getElementById("bg-bingo-text")
-                .classList.remove("show");
+    cells.forEach(cell => {
+
+        const idx = parseInt(cell.dataset.index);
+
+        const row = Math.floor(idx / currentSize);
+        const col = idx % currentSize;
+
+        if (cell.classList.contains("checked")) {
+            matrix[row][col] = true;
         }
+    });
 
-        function checkBingo() {
+    let currentLinesFound = 0;
 
-            const cells = document.querySelectorAll(".cell");
+    // ROWS
 
-            let matrix = Array(currentSize)
-                .fill()
-                .map(() => Array(currentSize).fill(false));
+    for (let r = 0; r < currentSize; r++) {
 
-            cells.forEach(cell => {
+        if (matrix[r].every(v => v)) {
+            currentLinesFound++;
+        }
+    }
 
-                const idx = parseInt(cell.dataset.index);
+    // COLUMNS
 
-                const row = Math.floor(idx / currentSize);
-                const col = idx % currentSize;
+    for (let c = 0; c < currentSize; c++) {
 
-                if (cell.classList.contains("checked")) {
-                    matrix[row][col] = true;
-                }
-            });
+        let full = true;
 
-            let currentLinesFound = 0;
+        for (let r = 0; r < currentSize; r++) {
 
-            // ROWS
-
-            for (let r = 0; r < currentSize; r++) {
-
-                if (matrix[r].every(v => v)) {
-                    currentLinesFound++;
-                }
-            }
-
-            // COLUMNS
-
-            for (let c = 0; c < currentSize; c++) {
-
-                let full = true;
-
-                for (let r = 0; r < currentSize; r++) {
-
-                    if (!matrix[r][c]) {
-                        full = false;
-                    }
-                }
-
-                if (full) {
-                    currentLinesFound++;
-                }
-            }
-
-            // MAIN DIAGONAL
-
-            let diag1 = true;
-
-            for (let i = 0; i < currentSize; i++) {
-
-                if (!matrix[i][i]) {
-                    diag1 = false;
-                }
-            }
-
-            if (diag1) {
-                currentLinesFound++;
-            }
-
-            // SECONDARY DIAGONAL
-
-            let diag2 = true;
-
-            for (let i = 0; i < currentSize; i++) {
-
-                if (!matrix[i][currentSize - 1 - i]) {
-                    diag2 = false;
-                }
-            }
-
-            if (diag2) {
-                currentLinesFound++;
-            }
-
-            document
-                .getElementById("lines-count-value")
-                .textContent = currentLinesFound;
-
-            if (currentLinesFound > completedLines) {
-
-                completedLines = currentLinesFound;
-
-                triggerBingo();
-
-            } else if (currentLinesFound < completedLines) {
-
-                completedLines = currentLinesFound;
+            if (!matrix[r][c]) {
+                full = false;
             }
         }
 
-        function triggerBingo() {
-
-            const bgText = document.getElementById("bg-bingo-text");
-
-            bgText.classList.remove("show");
-
-            void bgText.offsetWidth;
-
-            bgText.classList.add("show");
-
-            // REMOVE BACKGROUND TEXT AFTER 5 SECONDS
-
-            setTimeout(() => {
-
-                bgText.classList.remove("show");
-
-            }, 5000);
-
-            // RANDOM FACT
-
-            let randomIndex;
-
-            do {
-
-                randomIndex = Math.floor(
-                    Math.random() * eurovisionFactsAndQuotes.length
-                );
-
-            } while (randomIndex === lastFactIndex);
-
-            lastFactIndex = randomIndex;
-
-            const randomItem =
-                eurovisionFactsAndQuotes[randomIndex];
-
-            document.getElementById("quote-text").textContent =
-                `"${randomItem.quote}"`;
-
-            document.getElementById("quote-author").textContent =
-                `— ${randomItem.author}`;
-
-            document.getElementById("quote-context").textContent =
-                randomItem.context;
-
-            setTimeout(() => {
-
-                document
-                    .getElementById("bingo-overlay")
-                    .classList.add("active");
-
-            }, 400);
+        if (full) {
+            currentLinesFound++;
         }
+    }
 
-        function closeBingoModal() {
+    // MAIN DIAGONAL
 
-            document
-                .getElementById("bingo-overlay")
-                .classList.remove("active");
+    let diag1 = true;
+
+    for (let i = 0; i < currentSize; i++) {
+
+        if (!matrix[i][i]) {
+            diag1 = false;
         }
+    }
 
-    </script>
+    if (diag1) {
+        currentLinesFound++;
+    }
+
+    // SECONDARY DIAGONAL
+
+    let diag2 = true;
+
+    for (let i = 0; i < currentSize; i++) {
+
+        if (!matrix[i][currentSize - 1 - i]) {
+            diag2 = false;
+        }
+    }
+
+    if (diag2) {
+        currentLinesFound++;
+    }
+
+    document
+        .getElementById("lines-count-value")
+        .textContent = currentLinesFound;
+
+    if (currentLinesFound > completedLines) {
+
+        completedLines = currentLinesFound;
+
+        triggerBingo();
+
+    } else if (currentLinesFound < completedLines) {
+
+        completedLines = currentLinesFound;
+    }
+}
+
+function triggerBingo() {
+
+    const bgText = document.getElementById("bg-bingo-text");
+
+    bgText.classList.remove("show");
+
+    void bgText.offsetWidth;
+
+    bgText.classList.add("show");
+
+    // FADE AFTER 5 SECONDS
+
+    setTimeout(() => {
+
+        bgText.classList.remove("show");
+
+    }, 5000);
+
+    // RANDOM FACT
+
+    let randomIndex;
+
+    do {
+
+        randomIndex = Math.floor(
+            Math.random() * eurovisionFactsAndQuotes.length
+        );
+
+    } while (randomIndex === lastFactIndex);
+
+    lastFactIndex = randomIndex;
+
+    const randomItem =
+        eurovisionFactsAndQuotes[randomIndex];
+
+    document.getElementById("quote-text").textContent =
+        `"${randomItem.quote}"`;
+
+    document.getElementById("quote-author").textContent =
+        `— ${randomItem.author}`;
+
+    document.getElementById("quote-context").textContent =
+        randomItem.context;
+
+    setTimeout(() => {
+
+        document
+            .getElementById("bingo-overlay")
+            .classList.add("active");
+
+    }, 400);
+}
+
+function closeBingoModal() {
+
+    document
+        .getElementById("bingo-overlay")
+        .classList.remove("active");
+}
+
+</script>
 
 </body>
 </html>
