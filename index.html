@@ -32,7 +32,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             z-index: 10;
         }
 
@@ -54,7 +54,29 @@
             text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
         }
 
-        /* Screen Manager Layout States */
+        /* Score Tracker Banner styling */
+        .score-banner {
+            background: rgba(255, 0, 127, 0.15);
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+            z-index: 10;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-banner span {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
         .screen {
             display: none;
             width: 100%;
@@ -133,7 +155,6 @@
             box-shadow: 0 6px 12px rgba(0, 255, 255, 0.2);
         }
 
-        /* Verified cross off selection indicator classes */
         .cell.checked {
             background: rgba(255, 0, 127, 0.45) !important;
             border-color: var(--primary) !important;
@@ -190,7 +211,6 @@
             box-shadow: 0 6px 15px rgba(0, 255, 255, 0.3);
         }
 
-        /* Large Background Text Watermark Alert style */
         .bingo-bg-alert {
             position: fixed;
             top: 50%;
@@ -198,13 +218,13 @@
             transform: translate(-50%, -50%) scale(0.5);
             font-size: 18vw;
             font-weight: 900;
-            color: rgba(255, 0, 127, 0.18);
+            color: rgba(255, 0, 127, 0.25);
             text-transform: uppercase;
             letter-spacing: 5px;
             z-index: 1;
             pointer-events: none;
             opacity: 0;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .bingo-bg-alert.show {
@@ -212,7 +232,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        /* Foreground Modal Dialog Overlay styling */
         .overlay {
             position: fixed;
             top: 0;
@@ -263,8 +282,7 @@
         }
 
         .quote-box {
-            font-size: 1.3rem;
-            font-style: italic;
+            font-size: 1.2rem;
             margin: 25px 0;
             line-height: 1.5;
             color: #fff;
@@ -273,13 +291,26 @@
             text-align: left;
         }
 
+        .quote-text-main {
+            font-style: italic;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .quote-context {
+            display: block;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-top: 5px;
+            line-height: 1.3;
+        }
+
         .quote-author {
             display: block;
             font-size: 0.95rem;
             color: var(--secondary);
             margin-top: 8px;
             font-weight: bold;
-            font-style: normal;
         }
 
         @media (max-width: 600px) {
@@ -304,7 +335,11 @@
         <div class="subtitle">Grand Final Live Bingo</div>
     </header>
 
-    <!-- STEP 1: Main Menu Configuration Screen -->
+    <!-- Scorecard tracker banner component -->
+    <div class="score-banner" id="score-counter-banner">
+        Lines Cleared: <span id="lines-count-value">0</span>
+    </div>
+
     <div class="screen active" id="menu-screen">
         <div class="menu-box">
             <h2>Select Your Board Size</h2>
@@ -316,7 +351,6 @@
         </div>
     </div>
 
-    <!-- STEP 2: Gameplay Interactive Screen Grid -->
     <div class="screen" id="game-screen">
         <div class="grid-container">
             <div class="grid" id="bingo-grid"></div>
@@ -327,61 +361,70 @@
         </div>
     </div>
 
-    <!-- STEP 3: Victory Pop-up Overlay Dialog Box -->
     <div class="overlay" id="bingo-overlay">
         <div class="modal-box">
             <h2>BINGO!</h2>
             <div class="quote-box">
-                <span id="quote-text">"Quote text goes here..."</span>
-                <span class="quote-author" id="quote-author">— Author</span>
+                <span id="quote-text" class="quote-text-main">"Quote text goes here..."</span>
+                <span id="quote-author" class="quote-author">— Author</span>
+                <span id="quote-context" class="quote-context">Context details go here...</span>
             </div>
             <button class="btn" onclick="closeBingoModal()">Continue Playing</button>
         </div>
     </div>
 
     <script>
+        // Tropes infused with contextual local regional country flags
         const prompts = [
-            "UK's LOOK MUM NO COMPUTER triggers a custom crazy synth machine solo",
-            "Finland's heavy rock 'Liekinheitin' sets off a massive pyro wall",
-            "Australia's Delta Goodrem hits an operatic whistle high note",
-            "Greece's Akylas showcases high-energy traditional choreography",
-            "Hosts Victoria Swarovski or Michael Ostrowski crack an awkward joke",
-            "Greece and Cyprus swap maximum 12 points during voting",
-            "A national jury video broadcast feeds lag or freeze live",
-            "Green Room artists enthusiastically wave flags down the lens",
-            "A song entry is performed entirely in French",
-            "Stage wind machines running at maximum velocity blast",
-            "A surprise mid-song outfit or dress change transition occurs",
-            "A performer wears a completely sparkling sequined suit",
-            "Sparkler rain curtains cascade from the ceiling rafters",
-            "An entry drops flat onto the floor during the track climax",
-            "Lasers and strobe light sweeps flood the venue crowd",
-            "A backing dancer wears an opaque facial helmet or mask",
-            "An artist deliberately winks directly into the steadycam camera",
-            "A microphone stand or stage accessory accidentally falls over",
-            "A country receives 'Nul Points' during the public announcement",
-            "Spokespersons drag out the winner reveal for extra suspense",
-            "Fan in the standing pit wears elaborate face paint flags",
-            "A sudden or dramatic musical key change hits the last chorus",
-            "Commentator speaks directly over a postcard video sequence",
-            "Audience arena explicitly boos a political voting pattern",
-            "\"Thank you Vienna!\" is screamed into the microphone",
-            "The crowd stands up to sing along with an iconic chorus",
-            "An emotional artist sheds visible tears in the green room lounge",
-            "A backup singer is out of sync with the primary singer's movements"
+            "Host makes a cringey Mozart or waltz joke."
+"Spokesperson plugs their own music/brand.”
+"Graham Norton sighs heavily on mic."
+"Awkward, totally silent voting satellite delay."
+"Green room camera catches aggressive drinking."
+"Performer sings in mid-air."
+"Singer lies flat on floor 5s+."
+"Artist fails to get crowd clapping."
+"Performer pretends to play unplugged instrument."
+"Total zero points from public vote."
+"Host interacts with completely confused fan."
+“A performer screams.”
+"Presenter loses place on script."
+"Artist makes intense, unblinking lens stare."
+"Stage smoke completely hides performer.”
+"Cyprus and Greece predictably trade 12s."
+"Arena crowd loudly boos voting block."
+"Jury and public votes wildly contradict."
+"Performer wears dark sunglasses indoors entirely."
+“A flag from a non-participating nation.”
+“A song's final note is held out for over 5 seconds straight”
+“Seeing a camera where you shouldn’t be seeing a camera.”
+“A host completely drops character to laugh at a genuine technical delay.”,
+“Audience boos.”
+“Fire on stage.”
+"The scoreboard shows a country leading by over 50 points."
+"A spokesperson says 'Good evening' in the host country's language."
+"The host country gets a massive cheer from the arena."
+"The host changes into a completely new outfit."
+“Artist takes off an item of clothing."
+"The artist points directly down the camera lens."
+"A traditional or folk instrument is played on stage."
+"A key change."
+"The performer interacts directly with a backing dancer."
+"A confetti or glitter cannon goes off.”
         ];
 
-        const eurovisionQuotes = [
-            { quote: "Europe, start voting now!", author: "The Presenters" },
-            { quote: "I've seen some strange things over the years, but that really takes the biscuit.", author: "Graham Norton" },
-            { quote: "And the twelve points go to...", author: "National Spokespersons" },
-            { quote: "Thank you for an amazing show! Goodnight Europe!", author: "The Grand Winners" },
-            { quote: "You can see the absolute emotion in the green room tonight.", author: "Rylan Clark" },
-            { quote: "It's glitter, it's madness, it's beautiful chaos.", author: "BBC Commentary Room" }
+        const eurovisionFactsAndQuotes = [
+            { quote: "I've seen some strange things over the years, but that really takes the biscuit.", author: "Graham Norton", context: "Said on air during the BBC broadcast in 2011 about Moldova's Zdob și Zdub performing in giant pointed hats on unicycles." },
+            { quote: "Europe, start voting now!", author: "Petra Mede & Måns Zelmerlöw", context: "The classic iconic command given to open the voting windows at the 2016 Grand Final in Stockholm." },
+            { quote: "Did you know? Eurovision's oldest ever performer was 95 years old!", author: "Fun Fact", context: "Emil Ramsauer played the double bass for Switzerland's group 'Takasa' back in 2013, setting an ultimate record." },
+            { quote: "Did you know? In 1969, the contest had a massive four-way tie for first place!", author: "Fun Fact", context: "Spain, the UK, the Netherlands, and France all won simultaneously because no tiebreaker rule existed yet." },
+            { quote: "And the twelve points go to...", author: "Every Jury Spokesperson", context: "The highly anticipated phase repeated over thirty times every single year since the modern voting rules took over." },
+            { quote: "Did you know? The shortest song in history lasted just 1 minute and 27 seconds!", author: "Fun Fact", context: "Finland's 2015 punk entry 'Aina mun pitää' holds the absolute record for the fastest song to ever hit the stage." },
+            { quote: "Did you know? Ireland and Sweden are tied with the highest number of wins in history!", author: "Fun Fact", context: "Both dominant nations have taken the ultimate trophy home a staggering seven times each." }
         ];
 
         let currentSize = 5; 
-        let bingoAchieved = false;
+        let completedLines = 0; 
 
         function shuffle(array) {
             let currentIndex = array.length, randomIndex;
@@ -395,11 +438,16 @@
 
         function startGame(size) {
             currentSize = size;
-            bingoAchieved = false;
+            completedLines = 0;
             
             document.getElementById('bg-bingo-text').classList.remove('show');
             document.getElementById('menu-screen').classList.remove('active');
             document.getElementById('game-screen').classList.add('active');
+            
+            // Show scoretracker banner
+            const banner = document.getElementById('score-counter-banner');
+            banner.style.display = 'flex';
+            document.getElementById('lines-count-value').textContent = '0';
 
             generateCard(size);
         }
@@ -408,7 +456,7 @@
             document.getElementById('game-screen').classList.remove('active');
             document.getElementById('menu-screen').classList.add('active');
             document.getElementById('bg-bingo-text').classList.remove('show');
-            bingoAchieved = false;
+            document.getElementById('score-counter-banner').style.display = 'none';
         }
 
         function generateCard(size) {
@@ -428,7 +476,6 @@
                 cell.className = 'cell';
                 cell.dataset.index = i;
                 
-                // Add free space in exact grid centers for odd sizes
                 if ((size === 5 || size === 3) && i === centerIndex) {
                     cell.classList.add('free', 'checked'); 
                     cell.innerHTML = '✨<br>FREE SPACE';
@@ -454,12 +501,11 @@
                 }
             });
             document.getElementById('bg-bingo-text').classList.remove('show');
-            bingoAchieved = false;
+            completedLines = 0;
+            document.getElementById('lines-count-value').textContent = '0';
         }
 
         function checkBingo() {
-            if (bingoAchieved) return; 
-
             const cells = document.querySelectorAll('.cell');
             let matrix = Array(currentSize).fill().map(() => Array(currentSize).fill(false));
 
@@ -472,43 +518,61 @@
                 }
             });
 
-            let win = false;
+            let currentLinesFound = 0;
 
-            // Row Verification loop
+            // Check horizontal rows
             for (let r = 0; r < currentSize; r++) {
-                if (matrix[r].every(val => val === true)) win = true;
+                if (matrix[r].every(val => val === true)) currentLinesFound++;
             }
 
-            // Column Verification loop
+            // Check vertical columns
             for (let c = 0; c < currentSize; c++) {
                 let colCheck = true;
                 for (let r = 0; r < currentSize; r++) {
                     if (!matrix[r][c]) colCheck = false;
                 }
-                if (colCheck) win = true;
+                if (colCheck) currentLinesFound++;
             }
 
-            // Diagonal Cross Verification loops
+            // Check major diagonal
             let diag1 = true;
-            let diag2 = true;
             for (let i = 0; i < currentSize; i++) {
                 if (!matrix[i][i]) diag1 = false;
+            }
+            if (diag1) currentLinesFound++;
+
+            // Check minor diagonal
+            let diag2 = true;
+            for (let i = 0; i < currentSize; i++) {
                 if (!matrix[i][currentSize - 1 - i]) diag2 = false;
             }
-            if (diag1 || diag2) win = true;
+            if (diag2) currentLinesFound++;
 
-            if (win) {
+            // Update live counter value presentation element
+            document.getElementById('lines-count-value').textContent = currentLinesFound;
+
+            if (currentLinesFound > completedLines) {
+                completedLines = currentLinesFound;
                 triggerBingo();
+            } else if (currentLinesFound < completedLines) {
+                completedLines = currentLinesFound;
+                if (completedLines === 0) {
+                    document.getElementById('bg-bingo-text').classList.remove('show');
+                }
             }
         }
 
         function triggerBingo() {
-            bingoAchieved = true;
-            document.getElementById('bg-bingo-text').classList.add('show');
+            const bgAlert = document.getElementById('bg-bingo-text');
+            bgAlert.classList.remove('show');
+            void bgAlert.offsetWidth; 
+            bgAlert.classList.add('show');
 
-            const randomQuote = eurovisionQuotes[Math.floor(Math.random() * eurovisionQuotes.length)];
-            document.getElementById('quote-text').textContent = `"${randomQuote.quote}"`;
-            document.getElementById('quote-author').textContent = `— ${randomQuote.author}`;
+            const randomItem = eurovisionFactsAndQuotes[Math.floor(Math.random() * eurovisionFactsAndQuotes.length)];
+            
+            document.getElementById('quote-text').textContent = randomItem.quote;
+            document.getElementById('quote-author').textContent = `— ${randomItem.author}`;
+            document.getElementById('quote-context').textContent = randomItem.context;
 
             setTimeout(() => {
                 document.getElementById('bingo-overlay').classList.add('active');
